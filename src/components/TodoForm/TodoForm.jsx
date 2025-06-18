@@ -1,12 +1,12 @@
 import styles from "./TodoForm.module.css";
 
-export default function TodoForm() {
+export default function TodoForm({ onCreate }) {
     function handleSubmit(event) {
         event.preventDefault();
 
         const { elements } = event.target;
 
-        console.log({
+        onCreate({
             name: elements.name.value,
             description: elements.description.value,
             deadline: elements.deadline.value,
