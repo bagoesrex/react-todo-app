@@ -1,11 +1,15 @@
 import { PRIORITIES, PRIORITY_DEFAULT } from '../constant/priorities'
 import styles from './TodoListItem.module.css'
 
-export default function TodoListItem({ todo }) {
+export default function TodoListItem({ todo, onUpdate }) {
+    function handleCompleted(event) {
+        onUpdate(todo.id, { ...todo, completed: event.target.checked })
+    }
+
     return (
         <li className={styles.TodoListItem} data-completed={todo.completed}>
             <div className={styles.Content}>
-                <input type="checkbox" name="completed" defaultChecked={todo.completed} className={styles.Status} />
+                <input type="checkbox" name="completed" checked={todo.completed} onChange={handleCompleted} className={styles.Status} />
 
                 <div className={styles.Info}>
                     {todo.name}
