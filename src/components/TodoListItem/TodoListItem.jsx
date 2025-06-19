@@ -37,7 +37,7 @@ export default function TodoListItem({ todo, onUpdate }) {
     )
 
     const viewCreate = (
-        <form className={styles.Content}>
+        <form className={styles.Content} onReset={() => setIsEditing(false)}>
             <TodoFormFields todo={todo} />
 
             <div className={styles.Controls}>
