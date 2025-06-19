@@ -20,7 +20,7 @@
 
 .Description {
     font-size: 13px;
-    color: rgb(146, 145, 145);
+    color: gray;
 }
 
 .AdditionalInfo {
@@ -28,5 +28,17 @@
     flex-wrap: wrap;
     gap: 0 4px;
     font-size: 13px;
-    color: rgb(142, 141, 141);
+    color: gray;
+}
+
+.Controls {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+    align-self: flex-start;
+}
+
+.Controls button,
+.Controls input {
+    font-size: 10px;
 }
