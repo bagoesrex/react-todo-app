@@ -24,7 +24,7 @@ export default function TodoForm({ onCreate }) {
             <h3 className={styles.Title}>
                 New To-Do
                 <button onClick={() => setShowAll(!isShowAll)}>
-                    {isShowAll ? 'Show' : 'Hide'} all fields
+                    {isShowAll ? 'Hide' : 'Show'} all fields
                 </button>
             </h3>
 
