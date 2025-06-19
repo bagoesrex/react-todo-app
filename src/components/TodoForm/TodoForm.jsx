@@ -10,6 +10,7 @@ export default function TodoForm({ onCreate }) {
         event.preventDefault();
 
         const { elements } = event.target;
+        if (elements.name.value === "") return;
 
         onCreate({
             name: elements.name?.value ?? "",
@@ -18,6 +19,8 @@ export default function TodoForm({ onCreate }) {
             priority: elements.priority?.value ?? PRIORITY_DEFAULT,
             completed: false
         })
+
+        event.target.reset()
     }
 
     return (

@@ -3,11 +3,28 @@ import { PRIORITIES, PRIORITY_DEFAULT } from '../constant/priorities'
 import styles from './TodoListItem.module.css'
 import TodoFormFields from '../TodoFormFields/TodoFormFields'
 
-export default function TodoListItem({ todo, onUpdate }) {
+export default function TodoListItem({ todo, onUpdate, onDelete }) {
     const [isEditing, setIsEditing] = useState(false)
 
     function handleCompleted(event) {
         onUpdate(todo.id, { ...todo, completed: event.target.checked })
+    }
+
+    function handleEdit(event) {
+        event.preventDefault();
+
+        const { elements } = event.target;
+        if (elements.name.value === "") return;
+
+        onUpdate(todo.id, {
+            name: elements.name?.value,
+            description: elements.description?.value,
+            deadline: elements.deadline?.value,
+            priority: elements.priority?.value,
+            completed: todo.completed
+        })
+
+        setIsEditing(false)
     }
 
     const viewContent = (
@@ -32,12 +49,13 @@ export default function TodoListItem({ todo, onUpdate }) {
 
             <div className={styles.Controls}>
                 <button onClick={() => setIsEditing(true)}>📝</button>
+                <button onClick={() => onDelete(todo.id)}>🗑️</button>
             </div>
         </div>
     )
 
     const viewCreate = (
-        <form className={styles.Content} onReset={() => setIsEditing(false)}>
+        <form className={styles.Content} onReset={() => setIsEditing(false)} onSubmit={handleEdit}>
             <TodoFormFields todo={todo} />
 
             <div className={styles.Controls}>
