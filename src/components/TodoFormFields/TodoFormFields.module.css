@@ -1,0 +1,13 @@
+.FormField label {
+    font-size: 14px;
+}
+
+.FormField input,
+.FormField textarea,
+.FormField select {
+    width: 100%;
+}
+
+.FormField textarea {
+    resize: none;
+}
