@@ -1,7 +1,7 @@
 import { PRIORITIES, PRIORITY_DEFAULT } from '../constant/priorities'
 import styles from "./TodoFormFields.module.css";
 
-export default function TodoFormFields({ todo = {}, isShowAll = true }) {
+export default function TodoFormFields({ todo = {}, isShowAll = true, register }) {
     return (
         <div className={styles.FormFields}>
             <div className={styles.FormField}>
@@ -9,12 +9,9 @@ export default function TodoFormFields({ todo = {}, isShowAll = true }) {
                     type="text"
                     aria-label="Name"
                     placeholder="Name"
-                    name="name"
                     autoComplete="off"
                     defaultValue={todo.name}
-                    required
-                    minLength={3}
-                    maxLength={50}
+                    {...register("name", { required: true, minLength: 3, maxLength: 50 })}
                 />
             </div>
 
@@ -24,17 +21,27 @@ export default function TodoFormFields({ todo = {}, isShowAll = true }) {
                         <textarea
                             aria-label="Description"
                             placeholder="Description"
-                            name="description"
                             rows="3"
                             defaultValue={todo.description}
-                            maxLength={200}
+                            {...register("description", { maxLength: 200 })}
                         />
                     </div>
 
                     <div className={styles.FormGroup}>
                         <div className={styles.FormField}>
                             <label htmlFor="deadline">Deadline</label>
-                            <input type="date" id="deadline" name="deadline" defaultValue={todo.deadline} min={new Date().toISOString().split("T")[0]} onKeyDown={(e) => e.preventDefault()} />
+                            <input
+                                type="date"
+                                id="deadline"
+                                defaultValue={todo.deadline}
+                                onKeyDown={(e) => e.preventDefault()}
+                                {...register(
+                                    "deadline",
+                                    !todo.id && {
+                                        min: new Date().toISOString().split("T")[0],
+                                    }
+                                )}
+                            />
                         </div>
 
                         <div className={styles.FormField}>
