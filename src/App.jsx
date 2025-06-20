@@ -41,6 +41,7 @@ const TODOS_DUMMY = [
 
 function App() {
   const [todos, setTodos] = useState(TODOS_DUMMY);
+  const [filters, setFilters] = useState({})
 
   function handleCreate(newTodo) {
     setTodos((prevTodos) => [...prevTodos, { id: `${prevTodos.length + 1}`, ...newTodo }])
@@ -54,6 +55,14 @@ function App() {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id))
   }
 
+  function filtersTodos(todo) {
+    const { completed, priority } = filters
+
+    return (
+      (completed === "" || todo.completed === completed) && (priority === "" || todo.priority === priority)
+    )
+  }
+
   return (
     <div className={styles.App}>
       <header className={styles.Header}>
@@ -63,8 +72,8 @@ function App() {
 
       <div className={styles.AppContainer}>
         <TodoForm onCreate={handleCreate} />
-        <TodoFilters />
-        <TodoList todos={todos} onUpdate={handleUpdate} onDelete={handleDelete} />
+        <TodoFilters onFilter={setFilters} />
+        <TodoList todos={todos.filter(filtersTodos)} onUpdate={handleUpdate} onDelete={handleDelete} />
       </div>
     </div>
   )
