@@ -2,6 +2,7 @@ import { useState } from 'react'
 import styles from './App.module.css'
 import TodoForm from './components/TodoForm/TodoForm'
 import TodoList from './components/TodoList/TodoList';
+import TodoFilters from './components/TodoFilters/TodoFilters';
 
 const TODOS_DUMMY = [
   {
@@ -62,6 +63,7 @@ function App() {
 
       <div className={styles.AppContainer}>
         <TodoForm onCreate={handleCreate} />
+        <TodoFilters />
         <TodoList todos={todos} onUpdate={handleUpdate} onDelete={handleDelete} />
       </div>
     </div>
