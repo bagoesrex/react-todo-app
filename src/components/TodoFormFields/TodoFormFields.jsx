@@ -11,13 +11,16 @@ export default function TodoFormFields({ todo = {}, isShowAll = true, register, 
                     placeholder="Name"
                     autoComplete="off"
                     defaultValue={todo.name}
+                    aria-invalid={!!errors.name}
                     {...register("name", {
                         required: "Name is required",
                         minLength: { value: 3, message: "Nama harus lebih dari 3 karakter" },
                         maxLength: { value: 50, message: "Nama tidak boleh lebih dari 50 karakter" }
                     })}
                 />
-                {!!errors.name && errors.name.message}
+                {!!errors.name && (
+                    <span className={styles.FormFieldError}>{errors.name.message}</span>
+                )}
             </div>
 
             {isShowAll &&
@@ -28,11 +31,14 @@ export default function TodoFormFields({ todo = {}, isShowAll = true, register, 
                             placeholder="Description"
                             rows="3"
                             defaultValue={todo.description}
+                            aria-invalid={!!errors.description}
                             {...register("description", {
                                 maxLength: { value: 200, message: "Deskripsi tidak boleh lebih dari 200 karakter" }
                             })}
                         />
-                        {!!errors.description && errors.description.message}
+                        {!!errors.description && (
+                            <span className={styles.FormFieldError}>{errors.description.message}</span>
+                        )}
                     </div>
 
                     <div className={styles.FormGroup}>
@@ -43,6 +49,7 @@ export default function TodoFormFields({ todo = {}, isShowAll = true, register, 
                                 id="deadline"
                                 defaultValue={todo.deadline}
                                 onKeyDown={(e) => e.preventDefault()}
+                                aria-invalid={!!errors.deadline}
                                 {...register(
                                     "deadline",
                                     {
@@ -53,21 +60,29 @@ export default function TodoFormFields({ todo = {}, isShowAll = true, register, 
                                     }
                                 )}
                             />
-                            {!!errors.deadline && errors.deadline.message}
+                            {!!errors.deadline && (
+                                <span className={styles.FormFieldError}>{errors.deadline.message}</span>
+                            )}
                         </div>
 
                         <div className={styles.FormField}>
                             <label htmlFor="priority">Priority</label>
-                            <select defaultValue={todo.priority ?? PRIORITY_DEFAULT} id="priority" {...register("priority", {
-                                validate: (value) =>
-                                    Object.keys(PRIORITIES).includes(value) ||
-                                    "Priority tidak valid"
-                            })}>
+                            <select
+                                defaultValue={todo.priority ?? PRIORITY_DEFAULT}
+                                id="priority"
+                                aria-invalid={!!errors.priority}
+                                {...register("priority", {
+                                    validate: (value) =>
+                                        Object.keys(PRIORITIES).includes(value) ||
+                                        "Priority tidak valid"
+                                })}>
                                 {Object.entries(PRIORITIES).map(([key, { label }]) => (
                                     <option key={key} value={key}>{label}</option>
                                 ))}
                             </select>
-                            {!!errors.priority && errors.priority.message}
+                            {!!errors.priority && (
+                                <span className={styles.FormFieldError}>{errors.priority.message}</span>
+                            )}
                         </div>
                     </div>
                 </>
