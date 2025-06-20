@@ -6,7 +6,7 @@ import TodoFormFields from '../TodoFormFields/TodoFormFields'
 
 export default function TodoListItem({ todo, onUpdate, onDelete }) {
     const [isEditing, setIsEditing] = useState(false)
-    const { register, handleSubmit } = useForm({ defaultValues: todo })
+    const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: todo })
 
     function handleCompleted(event) {
         onUpdate(todo.id, { ...todo, completed: event.target.checked })
@@ -46,7 +46,7 @@ export default function TodoListItem({ todo, onUpdate, onDelete }) {
 
     const viewCreate = (
         <form className={styles.Content} onReset={() => setIsEditing(false)} onSubmit={handleSubmit(handleEdit)}>
-            <TodoFormFields todo={todo} register={register} />
+            <TodoFormFields todo={todo} register={register} errors={errors} />
 
             <div className={styles.Controls}>
                 <input type="submit" value="💾" />
