@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { PRIORITIES, PRIORITY_DEFAULT } from '../constant/priorities'
-import styles from './TodoListItem.module.css'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { getTodoSchema } from '../schemas/todo';
 import TodoFormFields from '../TodoFormFields/TodoFormFields'
+import styles from './TodoListItem.module.css'
 
 export default function TodoListItem({ todo, onUpdate, onDelete }) {
     const [isEditing, setIsEditing] = useState(false)
-    const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: todo })
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(getTodoSchema()), defaultValues: todo
+    })
 
     function handleCompleted(event) {
         onUpdate(todo.id, { ...todo, completed: event.target.checked })

@@ -12,11 +12,7 @@ export default function TodoFormFields({ todo = {}, isShowAll = true, register, 
                     autoComplete="off"
                     defaultValue={todo.name}
                     aria-invalid={!!errors.name}
-                    {...register("name", {
-                        required: "Name is required",
-                        minLength: { value: 3, message: "Nama harus lebih dari 3 karakter" },
-                        maxLength: { value: 50, message: "Nama tidak boleh lebih dari 50 karakter" }
-                    })}
+                    {...register("name")}
                 />
                 {!!errors.name && (
                     <span className={styles.FormFieldError}>{errors.name.message}</span>
@@ -32,9 +28,7 @@ export default function TodoFormFields({ todo = {}, isShowAll = true, register, 
                             rows="3"
                             defaultValue={todo.description}
                             aria-invalid={!!errors.description}
-                            {...register("description", {
-                                maxLength: { value: 200, message: "Deskripsi tidak boleh lebih dari 200 karakter" }
-                            })}
+                            {...register("description")}
                         />
                         {!!errors.description && (
                             <span className={styles.FormFieldError}>{errors.description.message}</span>
@@ -50,15 +44,7 @@ export default function TodoFormFields({ todo = {}, isShowAll = true, register, 
                                 defaultValue={todo.deadline}
                                 onKeyDown={(e) => e.preventDefault()}
                                 aria-invalid={!!errors.deadline}
-                                {...register(
-                                    "deadline",
-                                    {
-                                        min: !todo.id && {
-                                            value: new Date().toISOString().split("T")[0],
-                                            message: "Deadline tidak boleh tanggal yang sudah lewat"
-                                        }
-                                    }
-                                )}
+                                {...register("deadline")}
                             />
                             {!!errors.deadline && (
                                 <span className={styles.FormFieldError}>{errors.deadline.message}</span>
@@ -71,11 +57,7 @@ export default function TodoFormFields({ todo = {}, isShowAll = true, register, 
                                 defaultValue={todo.priority ?? PRIORITY_DEFAULT}
                                 id="priority"
                                 aria-invalid={!!errors.priority}
-                                {...register("priority", {
-                                    validate: (value) =>
-                                        Object.keys(PRIORITIES).includes(value) ||
-                                        "Priority tidak valid"
-                                })}>
+                                {...register("priority")}>
                                 {Object.entries(PRIORITIES).map(([key, { label }]) => (
                                     <option key={key} value={key}>{label}</option>
                                 ))}
