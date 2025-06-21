@@ -39,7 +39,7 @@ export function useTodos() {
 
   async function handleDelete(id) {
     try {
-      await api.todos.delete(8);
+      await api.todos.delete(id);
       await fetchTodos();
     } catch (error) {
       setErrorMessage("Gagal menghapus Todo. Silahkan Coba lagi");
