@@ -9,7 +9,8 @@ function App() {
   const [filters, setFilters] = useState({})
 
   function fetchTodos() {
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}/todos`, {
+    const searchParams = new URLSearchParams(filters).toString()
+    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}/todos?${searchParams}`, {
       method: 'GET',
       headers: { 'content-type': 'application/json' },
     })
@@ -19,7 +20,7 @@ function App() {
 
   useEffect(() => {
     fetchTodos()
-  }, [])
+  }, [filters])
 
   function handleCreate(newTodo) {
     fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}/todos`, {
@@ -49,14 +50,6 @@ function App() {
       .then(fetchTodos)
   }
 
-  function filtersTodos(todo) {
-    const { completed, priority } = filters
-
-    return (
-      (completed === "" || todo.completed === completed) && (priority === "" || todo.priority === priority)
-    )
-  }
-
   return (
     <div className={styles.App}>
       <header className={styles.Header}>
@@ -67,7 +60,7 @@ function App() {
       <div className={styles.AppContainer}>
         <TodoForm onCreate={handleCreate} />
         <TodoFilters onFilter={setFilters} />
-        <TodoList todos={todos.filter(filtersTodos)} onUpdate={handleUpdate} onDelete={handleDelete} />
+        <TodoList todos={todos} onUpdate={handleUpdate} onDelete={handleDelete} />
       </div>
     </div>
   )
