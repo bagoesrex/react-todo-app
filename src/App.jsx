@@ -10,7 +10,7 @@ function App() {
 
   function fetchTodos() {
     const searchParams = new URLSearchParams(filters).toString()
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}/todos?${searchParams}`, {
+    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos?${searchParams}`, {
       method: 'GET',
       headers: { 'content-type': 'application/json' },
     })
@@ -23,7 +23,7 @@ function App() {
   }, [filters])
 
   function handleCreate(newTodo) {
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}/todos`, {
+    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(newTodo)
@@ -33,7 +33,7 @@ function App() {
   }
 
   function handleUpdate(id, newTodo) {
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}/todos/${id}`, {
+    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos/${id}`, {
       method: 'PUT',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(newTodo)
@@ -43,7 +43,7 @@ function App() {
   }
 
   function handleDelete(id) {
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}/todos/${id}`, {
+    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos/${id}`, {
       method: 'DELETE',
     })
       .then(res => !!res.ok && res.json())
