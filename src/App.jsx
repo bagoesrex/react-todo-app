@@ -14,7 +14,10 @@ function App() {
       method: 'GET',
       headers: { 'content-type': 'application/json' },
     })
-      .then(res => !!res.ok && res.json())
+      .then(res => {
+        if (res.ok) return res.json()
+        if (res.status === 404) return []
+      })
       .then(setTodos)
   }
 
@@ -28,7 +31,10 @@ function App() {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(newTodo)
     })
-      .then(res => !!res.ok && res.json())
+      .then(res => {
+        if (res.ok) return res.json()
+        if (res.status === 404) return []
+      })
       .then(fetchTodos)
   }
 
@@ -38,7 +44,10 @@ function App() {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(newTodo)
     })
-      .then(res => !!res.ok && res.json())
+      .then(res => {
+        if (res.ok) return res.json()
+        if (res.status === 404) return []
+      })
       .then(fetchTodos)
   }
 
@@ -46,7 +55,10 @@ function App() {
     fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos/${id}`, {
       method: 'DELETE',
     })
-      .then(res => !!res.ok && res.json())
+      .then(res => {
+        if (res.ok) return res.json()
+        if (res.status === 404) return []
+      })
       .then(fetchTodos)
   }
 
