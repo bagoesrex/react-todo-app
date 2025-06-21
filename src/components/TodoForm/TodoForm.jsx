@@ -9,7 +9,7 @@ import styles from "./TodoForm.module.css";
 export default function TodoForm({ onCreate }) {
     const [isShowAll, setShowAll] = useState(false)
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
-        resolver: yupResolver(getTodoSchema()),
+        resolver: yupResolver(getTodoSchema({ isNew: true })),
         defaultValues: {
             description: "",
             deadline: "",
