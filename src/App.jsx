@@ -3,22 +3,14 @@ import styles from './App.module.css'
 import TodoForm from './components/TodoForm/TodoForm'
 import TodoList from './components/TodoList/TodoList';
 import TodoFilters from './components/TodoFilters/TodoFilters';
+import { api } from './api';
 
 function App() {
   const [todos, setTodos] = useState([])
   const [filters, setFilters] = useState({})
 
   function fetchTodos() {
-    const searchParams = new URLSearchParams(filters).toString()
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos?${searchParams}`, {
-      method: 'GET',
-      headers: { 'content-type': 'application/json' },
-    })
-      .then(res => {
-        if (res.ok) return res.json()
-        if (res.status === 404) return []
-      })
-      .then(setTodos)
+    api.todos.getAll(filters).then(setTodos)
   }
 
   useEffect(() => {
@@ -26,40 +18,15 @@ function App() {
   }, [filters])
 
   function handleCreate(newTodo) {
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(newTodo)
-    })
-      .then(res => {
-        if (res.ok) return res.json()
-        if (res.status === 404) return []
-      })
-      .then(fetchTodos)
+    api.todos.create(newTodo).then(fetchTodos)
   }
 
   function handleUpdate(id, newTodo) {
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos/${id}`, {
-      method: 'PUT',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(newTodo)
-    })
-      .then(res => {
-        if (res.ok) return res.json()
-        if (res.status === 404) return []
-      })
-      .then(fetchTodos)
+    api.todos.update(id, newTodo).then(fetchTodos)
   }
 
   function handleDelete(id) {
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos/${id}`, {
-      method: 'DELETE',
-    })
-      .then(res => {
-        if (res.ok) return res.json()
-        if (res.status === 404) return []
-      })
-      .then(fetchTodos)
+    api.todos.delete(id).then(fetchTodos)
   }
 
   return (
