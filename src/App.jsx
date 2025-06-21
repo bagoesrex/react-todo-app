@@ -3,6 +3,7 @@ import TodoForm from './components/TodoForm/TodoForm'
 import TodoList from './components/TodoList/TodoList';
 import TodoFilters from './components/TodoFilters/TodoFilters';
 import Alert from './components/Alert/Alert';
+import Loader from './components/Loader/Loader';
 import { useTodos } from './components/hooks/todo';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       </header>
 
       <div className={styles.AppContainer}>
+        {todos.isLoading && <Loader />}
         {!!todos.error.errorMessage && (
           <Alert onClear={todos.error.clear}>{todos.error.errorMessage}</Alert>
         )}
