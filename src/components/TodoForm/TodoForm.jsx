@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { PRIORITY_DEFAULT } from '../constant/priorities'
+import { PRIORITY_DEFAULT } from '../../constant/priorities'
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getTodoSchema } from '../schemas/todo';
+import { getTodoSchema } from '../../schemas/todo';
 import TodoFormFields from "../TodoFormFields/TodoFormFields";
 import styles from "./TodoForm.module.css";
 

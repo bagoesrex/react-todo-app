@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { COMPLETED_FILTERS, PRIORITY_FILTERS } from '../constant/filters'
+import { COMPLETED_FILTERS, PRIORITY_FILTERS } from '../../constant/filters'
 import styles from './TodoFilters.module.css'
 
 export default function TodoFilters({ onFilter }) {

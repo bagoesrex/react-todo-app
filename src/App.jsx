@@ -4,7 +4,7 @@ import TodoList from './components/TodoList/TodoList';
 import TodoFilters from './components/TodoFilters/TodoFilters';
 import Alert from './components/Alert/Alert';
 import Loader from './components/Loader/Loader';
-import { useTodos } from './components/hooks/todo';
+import { useTodos } from './hooks/todo';
 
 function App() {
   const todos = useTodos()

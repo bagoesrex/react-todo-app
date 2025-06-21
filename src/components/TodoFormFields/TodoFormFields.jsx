@@ -1,4 +1,4 @@
-import { PRIORITIES, PRIORITY_DEFAULT } from '../constant/priorities'
+import { PRIORITIES, PRIORITY_DEFAULT } from '../../constant/priorities'
 import styles from "./TodoFormFields.module.css";
 
 export default function TodoFormFields({ todo = {}, isShowAll = true, register, errors = {} }) {
