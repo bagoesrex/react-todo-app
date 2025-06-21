@@ -4,13 +4,14 @@ import { api } from "../../api";
 export function useTodos() {
   const [todos, setTodos] = useState([]);
   const [filters, setFilters] = useState({});
+  const [errorMessage, setErrorMessage] = useState();
 
   async function fetchTodos() {
     try {
       const data = await api.todos.getAll(filters);
       setTodos(data);
     } catch (error) {
-      console.log("Gagal fetch Todos");
+      setErrorMessage("Gagal fetch Todos. Silahkan Coba lagi");
     }
   }
 
@@ -23,7 +24,7 @@ export function useTodos() {
       await api.todos.create(newTodo);
       await fetchTodos();
     } catch (error) {
-      console.log("Gagal membuat Todo");
+      setErrorMessage("Gagal membuat Todo. Silahkan Coba lagi");
     }
   }
 
@@ -32,16 +33,16 @@ export function useTodos() {
       await api.todos.update(id, newTodo);
       await fetchTodos();
     } catch (error) {
-      console.log("Gagal memperbarui Todo");
+      setErrorMessage("Gagal memperbarui Todo. Silahkan Coba lagi");
     }
   }
 
   async function handleDelete(id) {
     try {
-      await api.todos.delete(id);
+      await api.todos.delete(8);
       await fetchTodos();
     } catch (error) {
-      console.log("Gagal menghapus Todo");
+      setErrorMessage("Gagal menghapus Todo. Silahkan Coba lagi");
     }
   }
 
@@ -52,5 +53,9 @@ export function useTodos() {
     create: handleCreate,
     update: handleUpdate,
     delete: handleDelete,
+    error: {
+      errorMessage: errorMessage,
+      clear: () => setErrorMessage(),
+    },
   };
 }
